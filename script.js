@@ -121,6 +121,7 @@ let questions = [
 let currentQuestionIndex = -1;
 let correctAnswers = 0;
 let chancesLeft = 2; // Number of chances user has
+let questionsAttempted = 0;
 
 function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
@@ -139,45 +140,54 @@ function displayQuestion() {
         button.textContent = option.text;
         button.classList.add('option-button');
         button.addEventListener('click', function handleAnswer() {
-    if (option.isCorrect) {
-        button.classList.add('correct');
-        correctAnswers++;
-        showScore();
-        calculatePercentageCorrect(); // Calculate and display percentage correct
-        hideMessage(); // Clear any previous messages
-        showCorrectMessage(); // Show message for correct answer
+            if (option.isCorrect) {
+                button.classList.add('correct');
+                correctAnswers++;
+                showScore();
+                calculatePercentageCorrect(); // Calculate and display percentage correct
+                hideMessage(); // Clear any previous messages
+                showCorrectMessage(); // Show message for correct answer
 
-        // Check if it's the second attempt
-        if (chancesLeft === 1) {
-            showMessage(`Correct! You got it on your second try. 😊`);
-        } else {
-            showMessage(`Correct!`);
-        }
+                if (chancesLeft === 1) {
+                    showMessage(`Correct! You got it on your second try. 😊`);
+                } else {
+                    showMessage(`Correct!`);
+                }
 
-        disableAnswerButtons();
-    } else {
-        button.classList.add('incorrect');
-        chancesLeft--;
-        button.disabled = true;
-        if (chancesLeft > 0) {
-            showMessage(`7awel mara tanya😡! You have ${chancesLeft} chances left.`);
-        } else {
-            showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
-            disableAnswerButtons();
-        }
-    }
-}
-);
+                disableAnswerButtons();
+            } else {
+                button.classList.add('incorrect');
+                chancesLeft--;
+
+                if (chancesLeft > 0) {
+                    showMessage(`7awel mara tanya😡! You have ${chancesLeft} chances left.`);
+                } else {
+                    showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+                    disableAnswerButtons();
+                }
+            }
+
+            // Increment questions attempted
+            questionsAttempted++;
+
+            // Check if all questions are attempted
+            if (questionsAttempted === questions.length) {
+                document.getElementById('next-question-btn').style.display = 'none';
+                document.getElementById('skip-question-btn').style.display = 'none';
+                document.getElementById('reset-btn').style.display = 'inline-block';
+            }
+        });
         questionContainer.appendChild(button);
     });
 
-    updateProgressBar(); // Update progress bar after displaying question
+    updateProgressBar();
 }
 
 function resetQuiz() {
     currentQuestionIndex = -1;
     correctAnswers = 0;
     chancesLeft = 2; // Reset chances
+    questionsAttempted = 0; // Reset questions attempted
     shuffleQuestions(); // Reshuffle questions array on reset
     displayQuestion();
 
@@ -188,6 +198,9 @@ function resetQuiz() {
     // Update percentage correct display
     calculatePercentageCorrect();
 }
+
+// Other functions (updateProgressBar, showScore, calculatePercentageCorrect, etc.) remain unchanged.
+
 
 function updateProgressBar() {
     const progressBar = document.getElementById('progress-bar');
