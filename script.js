@@ -151,9 +151,9 @@ function displayQuestion() {
                 chancesLeft--;
                 button.disabled = true;
                 if (chancesLeft > 0) {
-                    showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
+                    showMessage(`7awel mara tanya😡! You have ${chancesLeft} chances left.`);
                 } else {
-                    showMessage(`Wrong answer! The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+                    showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
                     disableAnswerButtons();
                 }
             }
