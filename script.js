@@ -171,7 +171,12 @@ function resetQuiz() {
     chancesLeft = 2; // Reset chances
     shuffleQuestions(); // Reshuffle questions array on reset
     displayQuestion();
-    function updateProgressBar() {
+    updateProgressBar(); // Ensure progress bar is reset
+    hideMessage(); // Clear any messages
+    document.getElementById('percentage-correct').textContent = ''; // Clear percentage correct display
+}
+
+function updateProgressBar() {
     const progressBar = document.getElementById('progress-bar');
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
     progressBar.style.width = progress + '%';
@@ -179,8 +184,8 @@ function resetQuiz() {
 
 function showScore() {
     const scoreElement = document.getElementById('score');
-    const percentage = (correctAnswers / questions.length) * 100;
-    scoreElement.textContent = `Score: ${percentage.toFixed(0)}%`;
+    const score = (correctAnswers / questions.length) * 100;
+    scoreElement.textContent = `Score: ${score.toFixed(0)}%`;
 }
 
 function calculatePercentageCorrect() {
@@ -221,7 +226,7 @@ function disableAnswerButtons() {
 }
 
 function shuffleQuestions() {
-    for (let i = questions.length - 1; i > 0; i--) {
+        for (let i = questions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [questions[i], questions[j]] = [questions[j], questions[i]];
     }
@@ -235,5 +240,14 @@ document.getElementById('reset-btn').addEventListener('click', resetQuiz);
 
 // Initial display of question
 displayQuestion();
-calculatePercentageCorrect(); // Calculate and display percentage correct
+
+// Function to start the quiz
+function startQuiz() {
+    resetQuiz();
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+}
+
+// Event listener for starting the quiz
+document.getElementById('start-btn').addEventListener('click', startQuiz);
 
