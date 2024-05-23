@@ -96,6 +96,26 @@ function updateProgress() {
     progressBar.style.width = progress + '%';
 }
 
+// function check answer
+
+function checkAnswer(option) {
+    if (option.isCorrect) {
+        optionButton.classList.add('correct');
+    } else {
+        optionButton.classList.add('incorrect');
+        const messageElement = document.getElementById('message');
+        messageElement.textContent = '7awel mara tanya ya 🐏 🤬.';
+        messageElement.style.display = 'block';
+    }
+
+    // Additional code within the checkAnswer function to handle correct and incorrect answers
+
+    answeredQuestions++;
+    correctAnswers += option.isCorrect ? 1 : 0;
+    updateScore();
+    updateProgress();
+}
+
 // Function to update total score
 function updateScore() {
     const score = (correctAnswers / answeredQuestions) * 100;
