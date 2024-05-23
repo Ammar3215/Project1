@@ -27,6 +27,33 @@ let questions = [
         ]
     },
      {
+        question: "Milan  UEFA Champions League  titles ",
+        options: [
+            { text: "5", isCorrect: false },
+            { text: " 7", isCorrect: true },
+            { text: "3", isCorrect: false },
+            { text: "8", isCorrect: false }
+        ]
+    },
+     {
+        question: "Most consecutive Premier league title wins",
+        options: [
+            { text: "Liverpool", isCorrect: false },
+            { text: " Arsenal", isCorrect: false },
+            { text: "Mancity ", isCorrect: true },
+            { text: "chelsea", isCorrect: false }
+        ]
+    },
+     {
+        question: "Most premier league titles by",
+        options: [
+            { text: "Man city", isCorrect: false },
+            { text: " chelsea", isCorrect: false },
+            { text: "arsenal", isCorrect: false },
+            { text: "Man united", isCorrect: ttue }
+        ]
+    },
+     {
         question: "Who won the world cup 2002",
         options: [
             { text: "Italy", isCorrect: false },
