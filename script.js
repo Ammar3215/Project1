@@ -99,8 +99,20 @@ function showScore() {
 
 function showMessage() {
     const messageElement = document.getElementById('message');
-    messageElement.textContent = 'Wrong answer! Try again.';
+    messageElement.textContent = 'Wrong answer🤬🤬🤬 Try again Ya 🐏';
 }
+function showCorrectMessage() {
+    showMessage('3alamy😍');
+    const messageElement = document.getElementById('message');
+    messageElement.style.color = '#28a745'; // Green color for correct messages
+}
+
+function showMessage(message) {
+    const messageElement = document.getElementById('message');
+    messageElement.textContent = message;
+    messageElement.style.color = '#dc3545'; // Red color for error messages
+}
+
 
 function hideMessage() {
     const messageElement = document.getElementById('message');
