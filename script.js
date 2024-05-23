@@ -162,7 +162,7 @@ function displayQuestion() {
         questionContainer.appendChild(button);
     });
 
-    updateProgressBar();
+    updateProgressBar(); // Update progress bar after displaying question
 }
 
 function resetQuiz() {
@@ -201,8 +201,6 @@ function calculatePercentageCorrect() {
     const percentage = (correctAnswers / questions.length) * 100;
     percentageElement.textContent = `Percentage Correct: ${percentage.toFixed(0)}%`;
 }
-
-
 
 function showMessage(message) {
     const messageElement = document.getElementById('message');
