@@ -52,10 +52,11 @@ function displayQuestion() {
                 button.classList.add('correct');
                 correctAnswers++;
                 showScore();
-                hideMessage(); // Clear any previous error message
+                hideMessage(); // Clear any previous messages
+                showCorrectMessage(); // Show message for correct answer
             } else {
                 button.classList.add('incorrect');
-                showMessage(); // Show error message for wrong answer
+                showMessage(); // Show message for wrong answer
             }
             document.querySelectorAll('.option-button').forEach(btn => {
                 btn.disabled = true;
@@ -99,20 +100,15 @@ function showScore() {
 
 function showMessage() {
     const messageElement = document.getElementById('message');
-    messageElement.textContent = 'Wrong answer🤬🤬🤬 Try again Ya 🐏';
+    messageElement.textContent = 'Wrong answer! Try again.';
+    messageElement.style.color = '#dc3545';
 }
+
 function showCorrectMessage() {
-    showMessage('3alamy😍');
     const messageElement = document.getElementById('message');
-    messageElement.style.color = '#28a745'; // Green color for correct messages
+    messageElement.textContent = 'Correct answer!';
+    messageElement.style.color = '#28a745';
 }
-
-function showMessage(message) {
-    const messageElement = document.getElementById('message');
-    messageElement.textContent = message;
-    messageElement.style.color = '#dc3545'; // Red color for error messages
-}
-
 
 function hideMessage() {
     const messageElement = document.getElementById('message');
