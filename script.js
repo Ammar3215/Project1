@@ -52,9 +52,10 @@ function displayQuestion() {
                 button.classList.add('correct');
                 correctAnswers++;
                 showScore();
+                hideMessage(); // Clear any previous error message
             } else {
                 button.classList.add('incorrect');
-                showErrorMessage();
+                showMessage(); // Show error message for wrong answer
             }
             document.querySelectorAll('.option-button').forEach(btn => {
                 btn.disabled = true;
@@ -96,7 +97,7 @@ function showScore() {
     scoreElement.textContent = `Score: ${score.toFixed(0)}%`;
 }
 
-function showErrorMessage() {
+function showMessage() {
     const messageElement = document.getElementById('message');
     messageElement.textContent = 'Wrong answer! Try again.';
 }
