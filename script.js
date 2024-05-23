@@ -143,6 +143,7 @@ function displayQuestion() {
                 button.classList.add('correct');
                 correctAnswers++;
                 showScore();
+                calculatePercentageCorrect(); // Calculate and display percentage correct
                 hideMessage(); // Clear any previous messages
                 showCorrectMessage(); // Show message for correct answer
                 disableAnswerButtons();
@@ -170,13 +171,7 @@ function resetQuiz() {
     chancesLeft = 2; // Reset chances
     shuffleQuestions(); // Reshuffle questions array on reset
     displayQuestion();
-    document.getElementById('pop-question-btn').style.display = 'inline-block';
-    document.getElementById('next-question-btn').style.display = 'none';
-    document.getElementById('skip-question-btn').style.display = 'none';
-    hideMessage();
-}
-
-function updateProgressBar() {
+    function updateProgressBar() {
     const progressBar = document.getElementById('progress-bar');
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
     progressBar.style.width = progress + '%';
@@ -184,8 +179,14 @@ function updateProgressBar() {
 
 function showScore() {
     const scoreElement = document.getElementById('score');
-    const score = (correctAnswers / questions.length) * 100;
-    scoreElement.textContent = `Score: ${score.toFixed(0)}%`;
+    const percentage = (correctAnswers / questions.length) * 100;
+    scoreElement.textContent = `Score: ${percentage.toFixed(0)}%`;
+}
+
+function calculatePercentageCorrect() {
+    const percentageElement = document.getElementById('percentage-correct');
+    const percentage = (correctAnswers / (currentQuestionIndex + 1)) * 100;
+    percentageElement.textContent = `Percentage Correct: ${percentage.toFixed(0)}%`;
 }
 
 function showMessage(message) {
@@ -195,9 +196,7 @@ function showMessage(message) {
 }
 
 function showCorrectMessage() {
-    const messageElement
-
- = document.getElementById('message');
+    const messageElement = document.getElementById('message');
     messageElement.textContent = '3alamy😍😍!';
     messageElement.style.color = '#28a745';
 }
@@ -221,7 +220,6 @@ function disableAnswerButtons() {
     document.getElementById('skip-question-btn').style.display = 'inline-block';
 }
 
-// Function to shuffle questions array
 function shuffleQuestions() {
     for (let i = questions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -237,3 +235,5 @@ document.getElementById('reset-btn').addEventListener('click', resetQuiz);
 
 // Initial display of question
 displayQuestion();
+calculatePercentageCorrect(); // Calculate and display percentage correct
+
