@@ -1,4 +1,4 @@
-const questions = [
+let questions = [
     {
         question: "A 25-year-old man presents with severe abdominal pain. Which of the following is the most likely diagnosis?",
         options: [
@@ -28,29 +28,42 @@ const questions = [
     }
 ];
 
+let shuffledQuestions = [];
+
+function shuffleQuestions() {
+    shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
+}
+
+shuffleQuestions();
+
 let currentQuestionIndex = -1;
 let correctAnswers = 0;
 let answeredQuestions = 0;
 
-// Function to shuffle questions array
-function shuffleQuestions() {
-    for (let i = questions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [questions[i], questions[j]] = [questions[j], questions[i]];
-    }
-}
+const questionContainer = document.getElementById('question-container');
+const popQuestionBtn = document.getElementById('pop-question-btn');
+const nextQuestionBtn = document.getElementById('next-question-btn');
+const skipQuestionBtn = document.getElementById('skip-question-btn');
+const resetBtn = document.getElementById('reset-btn');
+const progressBar = document.getElementById('progress-bar');
+const scoreContainer = document.getElementById('score-container');
+const messageContainer = document.getElementById('message-container');
 
-// Function to display question
 function displayQuestion() {
-    if (currentQuestionIndex === -1) {
-        shuffleQuestions();
-    }
-    currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
-
-    const questionContainer = document.getElementById('question-container');
     questionContainer.innerHTML = '';
+    messageContainer.textContent = '';
 
-    const questionObj = questions[currentQuestionIndex];
+    if (currentQuestionIndex === -1) {
+        popQuestionBtn.style.display = 'none';
+        nextQuestionBtn.style.display = 'inline-block';
+        skipQuestionBtn.style.display = 'inline-block';
+        progressBar.style.display = 'block';
+        currentQuestionIndex = 0;
+        correctAnswers = 0;
+        answeredQuestions = 0;
+    }
+
+    const questionObj = shuffledQuestions[currentQuestionIndex];
 
     const questionElement = document.createElement('div');
     questionElement.textContent = questionObj.question;
@@ -64,81 +77,46 @@ function displayQuestion() {
         button.addEventListener('click', function() {
             if (option.isCorrect) {
                 button.classList.add('correct');
+                correctAnswers++;
             } else {
                 button.classList.add('incorrect');
+                messageContainer.textContent = 'Wrong answer! Try again.';
             }
-            document.querySelectorAll('.option-button').forEach(btn => {
-                btn.disabled = true;
-                if (questions[currentQuestionIndex].options.find(opt => opt.text === btn.textContent).isCorrect) {
-                    btn.classList.add('correct');
-                } else if (!btn.classList.contains('correct')) {
-                    btn.classList.add('incorrect');
-                }
-            });
-
             answeredQuestions++;
-            correctAnswers += option.isCorrect ? 1 : 0;
-            updateScore();
             updateProgress();
+            disableButtons();
         });
         questionContainer.appendChild(button);
     });
 
-    document.getElementById('pop-question-btn').style.display = 'none';
-    document.getElementById('next-question-btn').style.display = 'inline-block';
-    document.getElementById('skip-question-btn').style.display = 'inline-block';
+    updateProgress();
 }
 
-// Function to update progress bar
 function updateProgress() {
-    const progress = (answeredQuestions / questions.length) * 100;
-    const progressBar = document.getElementById('progress-bar');
+    const progress = ((answeredQuestions / questions.length) * 100).toFixed(0);
     progressBar.style.width = progress + '%';
+    progressBar.textContent = progress + '%';
+    scoreContainer.textContent = `Score: ${correctAnswers}/${answeredQuestions}`;
 }
 
-// function check answer
-
-function checkAnswer(option) {
-    if (option.isCorrect) {
-        optionButton.classList.add('correct');
-    } else {
-        optionButton.classList.add('incorrect');
-        const messageElement = document.getElementById('message');
-        messageElement.textContent = '7awel mara tanya ya 🐏 🤬.';
-        messageElement.style.display = 'block';
-    }
-
-    // Additional code within the checkAnswer function to handle correct and incorrect answers
-
-    answeredQuestions++;
-    correctAnswers += option.isCorrect ? 1 : 0;
-    updateScore();
-    updateProgress();
+function disableButtons() {
+    document.querySelectorAll('.option-button').forEach(btn => {
+        btn.disabled = true;
+        if (shuffledQuestions[currentQuestionIndex].options.find(opt => opt.text === btn.textContent).isCorrect) {
+            btn.classList.add('correct');
+        } else if (!btn.classList.contains('correct')) {
+            btn.classList.add('incorrect');
+        }
+    });
 }
 
-// Function to update total score
-function updateScore() {
-    const score = (correctAnswers / answeredQuestions) * 100;
-    const scoreElement = document.getElementById('score');
-    scoreElement.textContent = `Total Score: ${score.toFixed(2)}%`;
-}
+popQuestionBtn.addEventListener('click', displayQuestion);
 
-// Function to reset quiz
-function resetQuiz() {
-    currentQuestionIndex = -1;
-    correctAnswers = 0;
-    answeredQuestions = 0;
-    updateScore();
-    updateProgress();
-    displayQuestion();
-}
+nextQuestionBtn.addEventListener('click', function() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex >= questions.length) {
+        currentQuestionIndex = 0;
+        shuffleQuestions();
+   
 
-// Event listeners
-document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('reset-btn').addEventListener('click', resetQuiz);
-
-// Initial display of question
-displayQuestion();
 
