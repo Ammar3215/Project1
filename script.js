@@ -174,6 +174,17 @@ function handleAnswer(option, button, questionObj) {
     toggleButtons(false); // Adjust button visibility
 }
 
+function displayQuiz() {
+    document.getElementById('welcome-message').style.display = 'none'; // Hide welcome message
+    document.querySelector('.button-container').style.display = 'block'; // Show button container
+    document.querySelector('.progress-container').style.display = 'block'; // Show progress container
+    document.getElementById('question-container').style.display = 'block'; // Show question container
+    displayQuestion(); // Display the first question
+}
+
+// Event listener for Start Quiz button
+document.getElementById('start-btn').addEventListener('click', displayQuiz);
+
 // Function to reset the quiz
 function resetQuiz() {
     currentQuestionIndex = -1; // Reset current question index
