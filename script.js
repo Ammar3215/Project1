@@ -28,12 +28,15 @@ const questions = [
     }
 ];
 
-document.getElementById('pop-question-btn').addEventListener('click', function() {
+let currentQuestionIndex = -1;
+let correctAnswers = 0;
+
+function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
     questionContainer.innerHTML = '';
 
-    const randomIndex = Math.floor(Math.random() * questions.length);
-    const questionObj = questions[randomIndex];
+    currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+    const questionObj = questions[currentQuestionIndex];
 
     const questionElement = document.createElement('div');
     questionElement.textContent = questionObj.question;
@@ -46,18 +49,36 @@ document.getElementById('pop-question-btn').addEventListener('click', function()
         button.addEventListener('click', function() {
             if (option.isCorrect) {
                 button.classList.add('correct');
+                correctAnswers++;
             } else {
                 button.classList.add('incorrect');
             }
             document.querySelectorAll('.option-button').forEach(btn => {
                 btn.disabled = true;
-                if (questions[randomIndex].options.find(opt => opt.text === btn.textContent).isCorrect) {
+                if (questions[currentQuestionIndex].options.find(opt => opt.text === btn.textContent).isCorrect) {
                     btn.classList.add('correct');
                 } else if (!btn.classList.contains('correct')) {
                     btn.classList.add('incorrect');
                 }
             });
+            document.getElementById('pop-question-btn').style.display = 'none';
+            document.getElementById('next-question-btn').style.display = 'inline-block';
+            document.getElementById('skip-question-btn').style.display = 'inline-block';
         });
         questionContainer.appendChild(button);
     });
-});
+}
+
+function resetQuiz() {
+    currentQuestionIndex = -1;
+    correctAnswers = 0;
+    displayQuestion();
+    document.getElementById('pop-question-btn').style.display = 'inline-block';
+    document.getElementById('next-question-btn').style.display = 'none';
+    document.getElementById('skip-question-btn').style.display = 'none';
+}
+
+document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('reset-btn').addEventListener('click', resetQuiz);
