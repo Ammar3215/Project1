@@ -171,6 +171,13 @@ function resetQuiz() {
     chancesLeft = 2; // Reset chances
     shuffleQuestions(); // Reshuffle questions array on reset
     displayQuestion();
+
+    // Reset progress bar to 0%
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.width = `0%`;
+
+    // Update percentage correct display
+    calculatePercentageCorrect();
 }
 
 function updateProgressBar() {
@@ -179,21 +186,12 @@ function updateProgressBar() {
     progressBar.style.width = `${progress}%`;
 }
 
-function showScore() {
-    const scoreElement = document.getElementById('score');
-    const percentage = (correctAnswers / questions.length) * 100;
-    scoreElement.textContent = `Score: ${percentage.toFixed(0)}%`;
-
-    // Update progress bar
-    const progressBar = document.getElementById('progress-bar');
-    progressBar.style.width = `${percentage}%`;
-}
-
 function calculatePercentageCorrect() {
     const percentageElement = document.getElementById('percentage-correct');
     const percentage = (correctAnswers / (currentQuestionIndex + 1)) * 100;
     percentageElement.textContent = `Percentage Correct: ${percentage.toFixed(0)}%`;
 }
+
 
 
 function showMessage(message) {
