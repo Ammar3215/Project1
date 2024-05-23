@@ -3,105 +3,106 @@ let questions = [
         question: "Who won the world cup 2010",
         options: [
             { text: "Italy", isCorrect: false },
-            { text: " spain", isCorrect: true },
+            { text: "Spain", isCorrect: true },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
         ]
     },
-      {
-    question: "Which of the following is a classic physical examination finding in a patient with lateral epicondylitis?",
-    options: [
-      { text: "Pain with palpation over the medial epicondyle", isCorrect: false },
-      { text: "Pain with resisted wrist extension", isCorrect: true },
-      { text: "Pain with ulnar deviation of the wrist", isCorrect: false },
-      { text: "Pain with flexion and adduction of the wrist", isCorrect: false }
-    ]
+    {
+        question: "Which of the following is a classic physical examination finding in a patient with lateral epicondylitis?",
+        options: [
+            { text: "Pain with palpation over the medial epicondyle", isCorrect: false },
+            { text: "Pain with resisted wrist extension", isCorrect: true },
+            { text: "Pain with ulnar deviation of the wrist", isCorrect: false },
+            { text: "Pain with flexion and adduction of the wrist", isCorrect: false }
+        ]
+    },
     {
         question: "Who won the world cup 1994",
         options: [
             { text: "Italy", isCorrect: false },
-            { text: " Brazil", isCorrect: true },
+            { text: "Brazil", isCorrect: true },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
         ]
     },
-{
-    question: "A 50-year-old woman presents with dry eyes and mouth, fatigue, and joint pain. On examination, there are bilateral parotid gland enlargement and positive anti-SSA (Ro) antibodies. What is the most likely diagnosis?",
-    options: [
-      { text: "Systemic lupus erythematosus (SLE)", isCorrect: false },
-      { text: "Sjögren's syndrome", isCorrect: true },
-      { text: "Rheumatoid arthritis (RA)", isCorrect: false },
-      { text: "Polymyalgia rheumatica", isCorrect: false }
-    ]
-  },
-     {
+    {
+        question: "A 50-year-old woman presents with dry eyes and mouth, fatigue, and joint pain. On examination, there are bilateral parotid gland enlargement and positive anti-SSA (Ro) antibodies. What is the most likely diagnosis?",
+        options: [
+            { text: "Systemic lupus erythematosus (SLE)", isCorrect: false },
+            { text: "Sjögren's syndrome", isCorrect: true },
+            { text: "Rheumatoid arthritis (RA)", isCorrect: false },
+            { text: "Polymyalgia rheumatica", isCorrect: false }
+        ]
+    },
+    {
         question: "Who won the world cup 2018",
         options: [
             { text: "Italy", isCorrect: false },
-            { text: " Brazil", isCorrect: false },
+            { text: "Brazil", isCorrect: false },
             { text: "France", isCorrect: true },
             { text: "Germany", isCorrect: false }
         ]
     },
-     {
-        question: "Milan  UEFA Champions League  titles ",
+    {
+        question: "Milan UEFA Champions League titles",
         options: [
             { text: "5", isCorrect: false },
-            { text: " 7", isCorrect: true },
+            { text: "7", isCorrect: true },
             { text: "3", isCorrect: false },
             { text: "8", isCorrect: false }
         ]
     },
-     {
+    {
         question: "Most consecutive Premier league title wins",
         options: [
             { text: "Liverpool", isCorrect: false },
-            { text: " Arsenal", isCorrect: false },
-            { text: "Mancity ", isCorrect: true },
-            { text: "chelsea", isCorrect: false }
+            { text: "Arsenal", isCorrect: false },
+            { text: "Man City", isCorrect: true },
+            { text: "Chelsea", isCorrect: false }
         ]
     },
-  {
-    question: " A 30-year-old female presents with pain and swelling in multiple joints, including the wrists, knees, and ankles. She reports morning stiffness lasting more than one hour. On examination, there is tenderness and swelling of the proximal interphalangeal joints and metacarpophalangeal joints. What is the most likely diagnosis?",
-    options: [
-      { text: "Rheumatoid arthritis (RA)", isCorrect: true },
-      { text: "Osteoarthritis (OA)", isCorrect: false },
-      { text: "Systemic lupus erythematosus (SLE)", isCorrect: false },
-      { text: "Psoriatic arthritis", isCorrect: false }
-    ]
-  },
-     {
+    {
+        question: "A 30-year-old female presents with pain and swelling in multiple joints, including the wrists, knees, and ankles. She reports morning stiffness lasting more than one hour. On examination, there is tenderness and swelling of the proximal interphalangeal joints and metacarpophalangeal joints. What is the most likely diagnosis?",
+        options: [
+            { text: "Rheumatoid arthritis (RA)", isCorrect: true },
+            { text: "Osteoarthritis (OA)", isCorrect: false },
+            { text: "Systemic lupus erythematosus (SLE)", isCorrect: false },
+            { text: "Psoriatic arthritis", isCorrect: false }
+        ]
+    },
+    {
         question: "Most premier league titles by",
         options: [
-            { text: "Man city", isCorrect: false },
-            { text: " chelsea", isCorrect: false },
-            { text: "arsenal", isCorrect: false },
-            { text: "Man united", isCorrect: ttue }
+            { text: "Man City", isCorrect: false },
+            { text: "Chelsea", isCorrect: false },
+            { text: "Arsenal", isCorrect: false },
+            { text: "Man United", isCorrect: true }
         ]
     },
-  {
-    question: "A 60-year-old male presents with sudden-onset severe pain and pallor in his left lower extremity. On examination, the limb is cold to touch, with absent distal pulses. What is the most likely diagnosis?",
-    options: [
-      { text: "Acute arterial thrombosis", isCorrect: true },
-      { text: "Deep vein thrombosis (DVT)", isCorrect: false },
-      { text: "Acute compartment syndrome", isCorrect: false },
-      { text: "Popliteal artery aneurysm rupture", isCorrect: false }
-    ]
-  },
-     {
+    {
+        question: "A 60-year-old male presents with sudden-onset severe pain and pallor in his left lower extremity. On examination, the limb is cold to touch, with absent distal pulses. What is the most likely diagnosis?",
+        options: [
+            { text: "Acute arterial thrombosis", isCorrect: true },
+            { text: "Deep vein thrombosis (DVT)", isCorrect: false },
+            { text: "Acute compartment syndrome", isCorrect: false },
+            { text: "Popliteal artery aneurysm rupture", isCorrect: false }
+        ]
+    },
+    {
         question: "Who won the world cup 2002",
         options: [
             { text: "Italy", isCorrect: false },
-            { text: " Brazil", isCorrect: true },
+            { text: "Brazil", isCorrect: true },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
         ]
     },
-     {
-        question: "How many ballon d'Or does Ronaldo have",
+    {
+        question: "How many Ballon d'Or does Ronaldo have",
         options: [
             { text: "2", isCorrect: false },
-            { text: " 5", isCorrect: true },
+            { text: "5", isCorrect: true },
             { text: "3", isCorrect: false },
             { text: "4", isCorrect: false }
         ]
@@ -110,72 +111,20 @@ let questions = [
         question: "Who won the world cup 2006",
         options: [
             { text: "Italy", isCorrect: true },
-            { text: " Brazil", isCorrect: false },
+            { text: "Brazil", isCorrect: false },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
         ]
     }
 ];
-let chancesLeft = 2; // Add this line to declare the variable
 
-function displayQuestion() {
-    // Existing code...
+let chancesLeft = 2; // Declare the variable
 
-    questionObj.options.forEach(option => {
-        const button = document.createElement('button');
-        button.textContent = option.text;
-        button.classList.add('option-button');
-        button.addEventListener('click', function handleAnswer() {
-            if (option.isCorrect) {
-                // Existing code...
-            } else {
-                button.classList.add('incorrect');
-                chancesLeft--;
-                if (chancesLeft > 0) {
-                    showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
-                } else {
-                    showMessage(`Wrong answer! The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
-                    disableAnswerButtons();
-                }
-            }
-        });
-        questionContainer.appendChild(button);
-    });
-
-    // Existing code...
-}
-
-function resetQuiz() {
-    // Existing code...
-    chancesLeft = 2; // Reset chances
-    // Existing code...
-}
-
-function showMessage(message) {
-    const messageElement = document.getElementById('message');
-    messageElement.textContent = message;
-    messageElement.style.color = '#dc3545';
-}
-
-let currentQuestionIndex = -1;
-let correctAnswers = 0;
-
-// Function to shuffle questions array
-function shuffleQuestions() {
-    for (let i = questions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [questions[i], questions[j]] = [questions[j], questions[i]];
-    }
-}
-
-// Shuffle questions array initially
-shuffleQuestions();
-
-// Function to display the next question
 function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
     questionContainer.innerHTML = '';
 
+    // Increment the currentQuestionIndex properly
     currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
     const questionObj = questions[currentQuestionIndex];
 
@@ -197,7 +146,13 @@ function displayQuestion() {
                 showCorrectMessage(); // Show message for correct answer
             } else {
                 button.classList.add('incorrect');
-                showMessage(); // Show message for wrong answer
+                chancesLeft--;
+                if (chancesLeft > 0) {
+                    showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
+                } else {
+                    showMessage(`Wrong answer! The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+                    disableAnswerButtons();
+                }
             }
             document.querySelectorAll('.option-button').forEach(btn => {
                 btn.disabled = true;
@@ -220,6 +175,7 @@ function displayQuestion() {
 function resetQuiz() {
     currentQuestionIndex = -1;
     correctAnswers = 0;
+    chancesLeft = 2; // Reset chances
     shuffleQuestions(); // Reshuffle questions array on reset
     displayQuestion();
     document.getElementById('pop-question-btn').style.display = 'inline-block';
@@ -240,28 +196,9 @@ function showScore() {
     scoreElement.textContent = `Score: ${score.toFixed(0)}%`;
 }
 
-function showMessage() {
+function showMessage(message) {
     const messageElement = document.getElementById('message');
-    messageElement.textContent = 'Wrong answer🤬🤬 Try again Ya 🐏🐏';
+    messageElement.textContent = message;
     messageElement.style.color = '#dc3545';
 }
 
-function showCorrectMessage() {
-    const messageElement = document.getElementById('message');
-    messageElement.textContent = '3alamy😍😍';
-    messageElement.style.color = '#28a745';
-}
-
-function hideMessage() {
-    const messageElement = document.getElementById('message');
-    messageElement.textContent = '';
-}
-
-// Event listeners
-document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('reset-btn').addEventListener('click', resetQuiz);
-
-// Initial display of question
-displayQuestion();
