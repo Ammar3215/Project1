@@ -1,158 +1,121 @@
-let questions = [
+// Sample quiz questions (you can replace with your own set)
+const questions = [
     {
-        question: "A 25-year-old man presents with severe abdominal pain. Which of the following is the most likely diagnosis?",
-        options: [
-            { text: "Acute appendicitis", isCorrect: true },
-            { text: "Gastroenteritis", isCorrect: false },
-            { text: "Peptic ulcer disease", isCorrect: false },
-            { text: "Irritable bowel syndrome", isCorrect: false }
-        ]
+        question: "What is the powerhouse of the cell?",
+        options: ["Nucleus", "Mitochondria", "Ribosome", "Endoplasmic Reticulum"],
+        answer: "Mitochondria"
     },
     {
-        question: "A 60-year-old woman with a history of hypertension presents with a headache and visual disturbances. What is the most likely cause?",
-        options: [
-            { text: "Migraine", isCorrect: false },
-            { text: "Hypertensive crisis", isCorrect: true },
-            { text: "Tension headache", isCorrect: false },
-            { text: "Cluster headache", isCorrect: false }
-        ]
-    },
-    {
-        question: "A 45-year-old man with a history of smoking presents with chronic cough and hemoptysis. What is the most likely diagnosis?",
-        options: [
-            { text: "Bronchitis", isCorrect: false },
-            { text: "Lung cancer", isCorrect: true },
-            { text: "Tuberculosis", isCorrect: false },
-            { text: "Pneumonia", isCorrect: false }
-        ]
+        question: "What is the largest organ in the human body?",
+        options: ["Brain", "Liver", "Skin", "Heart"],
+        answer: "Skin"
     }
+    // Add more questions as needed
 ];
 
-let currentQuestionIndex = -1;
-let correctAnswers = 0;
-let answeredQuestions = 0;
+let currentQuestionIndex = 0;
+let score = 0;
 
-const questionContainer = document.getElementById('question-container');
-const popQuestionBtn = document.getElementById('pop-question-btn');
-const nextQuestionBtn = document.getElementById('next-question-btn');
-const skipQuestionBtn = document.getElementById('skip-question-btn');
-const resetBtn = document.getElementById('reset-btn');
-const progressBar = document.getElementById('progress-bar');
-const progressText = document.getElementById('progress-text');
-const scoreText = document.getElementById('score-text');
-const messageContainer = document.getElementById('message-container');
+const startQuizButton = document.getElementById('start-quiz');
+const nextQuestionButton = document.getElementById('next-question');
+const skipQuestionButton = document.getElementById('skip-question');
+const resetQuizButton = document.getElementById('reset-quiz');
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const progressBarFill = document.getElementById('progress-bar-fill');
+const scoreText = document.getElementById('score');
 
-// Shuffle questions on page load
-shuffleQuestions();
+startQuizButton.addEventListener('click', startQuiz);
+nextQuestionButton.addEventListener('click', showNextQuestion);
+skipQuestionButton.addEventListener('click', showNextQuestion);
+resetQuizButton.addEventListener('click', resetQuiz);
 
-function shuffleQuestions() {
-    questions = questions.sort(() => Math.random() - 0.5);
+function startQuiz() {
+    shuffleQuestions();
+    showQuestion();
+    startQuizButton.style.display = 'none';
+    nextQuestionButton.style.display = 'inline-block';
+    skipQuestionButton.style.display = 'inline-block';
+    resetQuizButton.style.display = 'inline-block';
 }
 
-function displayQuestion() {
-    resetState();
-    questionContainer.innerHTML = '';
-
-    if (currentQuestionIndex === -1) {
-        currentQuestionIndex = 0;
-    }
-
-    const questionObj = questions[currentQuestionIndex];
-
-    const questionElement = document.createElement('div');
-    questionElement.textContent = questionObj.question;
-    questionElement.classList.add('question');
-    questionContainer.appendChild(questionElement);
-
-    questionObj.options.forEach(option => {
-        const button = document.createElement('button');
-        button.textContent = option.text;
-        button.classList.add('option-button');
-        button.addEventListener('click', function() {
-            if (option.isCorrect) {
-                button.classList.add('correct');
-                handleCorrectAnswer();
-            } else {
-                button.classList.add('incorrect');
-                handleWrongAnswer();
-            }
-            disableOptionButtons();
+function showQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionText.textContent = currentQuestion.question;
+    
+    optionsContainer.innerHTML = ''; // Clear previous options
+    
+    currentQuestion.options.forEach((option, index) => {
+        const optionButton = document.createElement('button');
+        optionButton.classList.add('option-button');
+        optionButton.textContent = option;
+        optionButton.addEventListener('click', () => {
+            checkAnswer(option, currentQuestion.answer);
         });
-        questionContainer.appendChild(button);
+        optionsContainer.appendChild(optionButton);
     });
 
     updateProgressBar();
 }
 
-function handleCorrectAnswer() {
-    correctAnswers++;
-    answeredQuestions++;
-    showFeedbackMessage('Correct!');
-    updateScore();
+function checkAnswer(selectedOption, correctAnswer) {
+    if (selectedOption === correctAnswer) {
+        score++;
+    }
+
+    const optionButtons = document.querySelectorAll('.option-button');
+    optionButtons.forEach(button => {
+        if (button.textContent === correctAnswer) {
+            button.style.backgroundColor = '#4CAF50'; // Green for correct answer
+        } else {
+            button.style.backgroundColor = '#f44336'; // Red for wrong answers
+        }
+        button.disabled = true; // Disable buttons after answering
+    });
+
+    scoreText.textContent = `Score: ${(score / questions.length * 100).toFixed(2)}%`;
 }
 
-function handleWrongAnswer() {
-    answeredQuestions++;
-    showFeedbackMessage('Try again🤬🤬 Ya 🐏!');
+function showNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        endQuiz();
+    }
 }
 
-function showFeedbackMessage(message) {
-    messageContainer.textContent = message;
+function endQuiz() {
+    nextQuestionButton.style.display = 'none';
+    skipQuestionButton.style.display = 'none';
+    resetQuizButton.style.display = 'inline-block';
 }
 
-function updateScore() {
-    const scorePercentage = Math.round((correctAnswers / answeredQuestions) * 100);
-    scoreText.textContent = `Score: ${scorePercentage}%`;
+function resetQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+    scoreText.textContent = `Score: 0%`;
+
+    const optionButtons = document.querySelectorAll('.option-button');
+    optionButtons.forEach(button => {
+        button.style.backgroundColor = ''; // Reset button background color
+        button.disabled = false; // Enable buttons
+    });
+
+    nextQuestionButton.style.display = 'inline-block';
+    skipQuestionButton.style.display = 'inline-block';
+    resetQuizButton.style.display = 'none';
 }
 
 function updateProgressBar() {
-    const progressPercentage = Math.round((answeredQuestions / questions.length) * 100);
-    progressBar.style.width = `${progressPercentage}%`;
-    progressText.textContent = `Question ${answeredQuestions} of ${questions.length}`;
+    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBarFill.style.width = `${progress}%`;
 }
 
-function disableOptionButtons() {
-    document.querySelectorAll('.option-button').forEach(btn => {
-        btn.disabled = true;
-        if (questions[currentQuestionIndex].options.find(opt => opt.text === btn.textContent).isCorrect) {
-            btn.classList.add('correct');
-        } else if (!btn.classList.contains('correct')) {
-            btn.classList.add('incorrect');
-        }
-    });
-}
-
-function resetState() {
-    messageContainer.textContent = '';
-    document.querySelectorAll('.option-button').forEach(btn => {
-        btn.disabled = false;
-        btn.classList.remove('correct', 'incorrect');
-    });
-}
-
-popQuestionBtn.addEventListener('click', displayQuestion);
-
-nextQuestionBtn.addEventListener('click', function() {
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        displayQuestion();
+function shuffleQuestions() {
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
     }
-});
-
-skipQuestionBtn.addEventListener('click', function() {
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        displayQuestion();
-    }
-});
-
-resetBtn.addEventListener('click', function() {
-    currentQuestionIndex = -1;
-    correctAnswers = 0;
-    answeredQuestions = 0;
-    shuffleQuestions();
-    displayQuestion();
-    scoreText.textContent = 'Score: 0%';
-    progressBar.style.width = '0%';
-    progressText.textContent = '';
-});
+}
