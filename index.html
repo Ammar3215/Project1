@@ -3,32 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USMLE Random Question</title>
+    <title>USMLE Pop Quiz</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>USMLE Random Question</h1>
-        <div id="question-container" class="question-container"></div>
-        <div id="buttons-container" class="button-container">
-            <button id="pop-question-btn" class="button">Pop Question</button>
-            <button id="next-question-btn" class="button" style="display: none;">Next Question</button>
-            <button id="skip-question-btn" class="button" style="display: none;">Skip Question</button>
-            <button id="reset-btn" class="button">Reset</button>
+        <h1>USMLE Pop Quiz</h1>
+        <div id="quiz-container">
+            <p id="question-text"></p>
+            <div id="options-container">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+            <button id="start-quiz">Start Quiz</button>
+            <button id="next-question" style="display: none;">Next Question</button>
+            <button id="skip-question" style="display: none;">Skip Question</button>
+            <button id="reset-quiz" style="display: none;">Reset Quiz</button>
+            <div id="progress-bar">
+                <div id="progress-bar-fill"></div>
+            </div>
+            <p id="score">Score: 0%</p>
         </div>
-        <div id="progress-bar-container" class="progress-bar-container">
-            <div id="progress-bar" class="progress-bar"></div>
-            <div id="progress-text" class="progress-text"></div>
-        </div>
-        <div id="score-container" class="score-container">
-            <p id="score-text" class="score-text">Score: 0%</p>
-        </div>
-        <div id="message-container" class="message-container"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
