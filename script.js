@@ -166,6 +166,9 @@ function handleAnswer(option, button, questionObj) {
         chancesLeft--;
         if (chancesLeft > 0) {
             showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
+            setTimeout(() => {
+                toggleButtons(true); // Re-enable buttons after showing message
+            }, 1000); // Adjust delay as needed
         } else {
             showMessage(`Wrong answer! The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
             disableAnswerButtons();
@@ -232,12 +235,43 @@ function hideMessage() {
     messageElement.textContent = '';
 }
 
-
 // Function to toggle button visibility
 function toggleButtons(showNext) {
     document.getElementById('pop-question-btn').style.display = showNext ? 'inline-block' : 'none';
     document.getElementById('next-question-btn').style.display = showNext ? 'none' : 'inline-block';
     document.getElementById('skip-question-btn').style.display = showNext ? 'none' : 'inline-block';
+}
+
+// Function to disable all answer buttons
+function disableAnswerButtons() {
+    const buttons = document.querySelectorAll('.option-button');
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+}
+
+// Function to enable all answer buttons
+function enableAnswerButtons() {
+    const buttons = document.querySelectorAll('.option-button');
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+}
+
+// Function to display the quiz result
+function displayResult() {
+    const questionContainer = document.getElementById('question-container');
+    questionContainer.innerHTML = ''; // Clear question container
+
+    const resultMessage = document.createElement('div');
+    resultMessage.textContent = `Quiz Complete! Your final score is ${((correctAnswers / questions.length) * 100).toFixed(0)}%.`;
+    resultMessage.classList.add('result');
+    questionContainer.appendChild(resultMessage);
+
+    document.getElementById('pop-question-btn').style.display = 'none'; // Hide 'Next Question' button
+    document.getElementById('next-question-btn').style.display = 'none'; // Hide 'Next Question' button
+    document.getElementById('skip-question-btn').style.display = 'none'; // Hide 'Skip Question' button
+    document.getElementById('reset-btn').style.display = 'inline-block'; // Show 'Reset Quiz' button
 }
 
 // Function to shuffle questions array
@@ -248,19 +282,24 @@ function shuffleQuestions() {
     }
 }
 
-// Event listener for Start Quiz button
-document.getElementById('start-btn').addEventListener('click', function() {
-    document.getElementById('welcome-message').style.display = 'none'; // Hide welcome message
-    document.querySelector('.button-container').style.display = 'block'; // Show button container
-    document.querySelector('.progress-container').style.display = 'block'; // Show progress container
-    displayQuestion(); // Display the first question
+// Event listener for quiz control buttons
+document.getElementById('pop-question-btn').addEventListener('click', function() {
+    enableAnswerButtons();
+    displayQuestion();
 });
 
-// Event listeners for quiz control buttons
-document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('next-question-btn').addEventListener('click', function() {
+    enableAnswerButtons();
+    displayQuestion();
+});
+
+document.getElementById('skip-question-btn').addEventListener('click', function() {
+    enableAnswerButtons();
+    displayQuestion();
+});
+
 document.getElementById('reset-btn').addEventListener('click', resetQuiz);
 
 // Initialize the quiz
 resetQuiz();
+
