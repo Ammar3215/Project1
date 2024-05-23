@@ -118,17 +118,14 @@ let questions = [
     }
 ];
 
-let chancesLeft = 2; // Declare the variable
+let chancesLeft = 2; 
+let currentQuestionIndex = -1; 
+let correctAnswers = 0;
 
-let currentQuestionIndex = -1; // Initialize current question index
-let correctAnswers = 0; // Initialize correct answers count
-
-// Function to display a question
 function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
-    questionContainer.innerHTML = ''; // Clear previous question
+    questionContainer.innerHTML = ''; 
 
-    // Increment the currentQuestionIndex properly
     currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
     const questionObj = questions[currentQuestionIndex];
 
@@ -142,80 +139,100 @@ function displayQuestion() {
         button.textContent = option.text;
         button.classList.add('option-button');
         button.addEventListener('click', function() {
-            if (option.isCorrect) {
-                button.classList.add('correct');
-                correctAnswers++;
-                showScore();
-                hideMessage(); // Clear any previous messages
-                showCorrectMessage(); // Show message for correct answer
-            } else {
-                button.classList.add('incorrect');
-                chancesLeft--;
-                if (chancesLeft > 0) {
-                    showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
-                } else {
-                    showMessage(`Wrong answer! The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
-                    disableAnswerButtons();
-                }
-            }
-            disableAnswerButtons(); // Disable all answer buttons
-            document.getElementById('pop-question-btn').style.display = 'none'; // Hide 'Next Question' button
-            document.getElementById('next-question-btn').style.display = 'inline-block'; // Show 'Next Question' button
-            document.getElementById('skip-question-btn').style.display = 'inline-block'; // Show 'Skip Question' button
+            handleAnswer(option, button, questionObj);
         });
         questionContainer.appendChild(button);
     });
 
-    updateProgressBar(); // Update progress bar
+    updateProgressBar();
+    toggleButtons(true); // Show/hide buttons accordingly
 }
 
-// Function to reset the quiz
+function handleAnswer(option, button, questionObj) {
+    disableAnswerButtons();
+    if (option.isCorrect) {
+        button.classList.add('correct');
+        correctAnswers++;
+        showScore();
+        hideMessage();
+        showCorrectMessage();
+    } else {
+        button.classList.add('incorrect');
+        chancesLeft--;
+        if (chancesLeft > 0) {
+            showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
+        } else {
+            showMessage(`Wrong answer! The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+            disableAnswerButtons();
+        }
+    }
+    toggleButtons(false); // Adjust button visibility
+}
+
 function resetQuiz() {
-    currentQuestionIndex = -1; // Reset current question index
-    correctAnswers = 0; // Reset correct answers count
-    chancesLeft = 2; // Reset chances left
-    shuffleQuestions(); // Reshuffle questions array on reset
-    displayQuestion(); // Display the first question
-    document.getElementById('pop-question-btn').style.display = 'inline-block'; // Show 'Next Question' button
-    document.getElementById('next-question-btn').style.display = 'none'; // Hide 'Next Question' button
-    document.getElementById('skip-question-btn').style.display = 'none'; // Hide 'Skip Question' button
-    hideMessage(); // Hide any message
+    currentQuestionIndex = -1; 
+    correctAnswers = 0; 
+    chancesLeft = 2; 
+    shuffleQuestions(); 
+    displayQuestion();
+    toggleButtons(true); 
+    hideMessage(); 
 }
 
-// Function to update the progress bar
 function updateProgressBar() {
     const progressBar = document.getElementById('progress-bar');
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
     progressBar.style.width = progress + '%';
 }
 
-// Function to show the score
 function showScore() {
     const scoreElement = document.getElementById('score');
     const score = (correctAnswers / questions.length) * 100;
     scoreElement.textContent = `Score: ${score.toFixed(0)}%`;
 }
 
-// Function to show a message
 function showMessage(message) {
     const messageElement = document.getElementById('message');
     messageElement.textContent = message;
     messageElement.style.color = '#dc3545';
 }
 
-// Function to show a correct message
 function showCorrectMessage() {
     const messageElement = document.getElementById('message');
     messageElement.textContent = 'Correct answer! Well done!';
     messageElement.style.color = '#28a745';
 }
 
-// Function to hide any message
 function hideMessage() {
     const messageElement = document.getElementById('message');
     messageElement.textContent = '';
 }
 
+function disableAnswerButtons() {
+    const buttons = document.querySelectorAll('.option-button');
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+}
+
+function toggleButtons(showNext) {
+    document.getElementById('pop-question-btn').style.display = showNext ? 'inline-block' : 'none';
+    document.getElementById('next-question-btn').style.display = showNext ? 'none' : 'inline-block';
+    document.getElementById('skip-question-btn').style.display = showNext ? 'none' : 'inline-block';
+}
+
+function shuffleQuestions() {
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+}
+
 // Event listeners
 document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
-document.getElementById('next-question-btn').addEventListener
+document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('reset-btn').addEventListener('click', resetQuiz);
+
+// Initialize the quiz
+resetQuiz();
