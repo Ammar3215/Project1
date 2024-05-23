@@ -40,6 +40,7 @@ function displayQuestion() {
 
     const questionElement = document.createElement('div');
     questionElement.textContent = questionObj.question;
+    questionElement.classList.add('question');
     questionContainer.appendChild(questionElement);
 
     questionObj.options.forEach(option => {
@@ -50,8 +51,10 @@ function displayQuestion() {
             if (option.isCorrect) {
                 button.classList.add('correct');
                 correctAnswers++;
+                showScore();
             } else {
                 button.classList.add('incorrect');
+                showErrorMessage();
             }
             document.querySelectorAll('.option-button').forEach(btn => {
                 btn.disabled = true;
@@ -67,6 +70,8 @@ function displayQuestion() {
         });
         questionContainer.appendChild(button);
     });
+
+    updateProgressBar();
 }
 
 function resetQuiz() {
@@ -76,9 +81,35 @@ function resetQuiz() {
     document.getElementById('pop-question-btn').style.display = 'inline-block';
     document.getElementById('next-question-btn').style.display = 'none';
     document.getElementById('skip-question-btn').style.display = 'none';
+    hideMessage();
+}
+
+function updateProgressBar() {
+    const progressBar = document.getElementById('progress-bar');
+    const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBar.style.width = progress + '%';
+}
+
+function showScore() {
+    const scoreElement = document.getElementById('score');
+    const score = (correctAnswers / questions.length) * 100;
+    scoreElement.textContent = `Score: ${score.toFixed(0)}%`;
+}
+
+function showErrorMessage() {
+    const messageElement = document.getElementById('message');
+    messageElement.textContent = 'Wrong answer! Try again.';
+}
+
+function hideMessage() {
+    const messageElement = document.getElementById('message');
+    messageElement.textContent = '';
 }
 
 document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
 document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
 document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
 document.getElementById('reset-btn').addEventListener('click', resetQuiz);
+
+// Initial display of question
+displayQuestion();
