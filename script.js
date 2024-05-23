@@ -1,29 +1,56 @@
 let questions = [
     {
-        question: "A 25-year-old man presents with severe abdominal pain. Which of the following is the most likely diagnosis?",
+        question: "Who won the world cup 2010",
         options: [
-            { text: "Acute appendicitis", isCorrect: true },
-            { text: "Gastroenteritis", isCorrect: false },
-            { text: "Peptic ulcer disease", isCorrect: false },
-            { text: "Irritable bowel syndrome", isCorrect: false }
+            { text: "Italy", isCorrect: false },
+            { text: " spain", isCorrect: true },
+            { text: "France", isCorrect: false },
+            { text: "Germany", isCorrect: false }
         ]
     },
     {
-        question: "A 60-year-old woman with a history of hypertension presents with a headache and visual disturbances. What is the most likely cause?",
+        question: "Who won the world cup 1994",
         options: [
-            { text: "Migraine", isCorrect: false },
-            { text: "Hypertensive crisis", isCorrect: true },
-            { text: "Tension headache", isCorrect: false },
-            { text: "Cluster headache", isCorrect: false }
+            { text: "Italy", isCorrect: false },
+            { text: " Brazil", isCorrect: true },
+            { text: "France", isCorrect: false },
+            { text: "Germany", isCorrect: false }
+        ]
+    },
+     {
+        question: "Who won the world cup 2018",
+        options: [
+            { text: "Italy", isCorrect: false },
+            { text: " Brazil", isCorrect: false },
+            { text: "France", isCorrect: true },
+            { text: "Germany", isCorrect: false }
+        ]
+    },
+     {
+        question: "Who won the world cup 2002",
+        options: [
+            { text: "Italy", isCorrect: false },
+            { text: " Brazil", isCorrect: true },
+            { text: "France", isCorrect: false },
+            { text: "Germany", isCorrect: false }
+        ]
+    },
+     {
+        question: "How many ballon d'Or does Ronaldo have",
+        options: [
+            { text: "2", isCorrect: false },
+            { text: " 5", isCorrect: true },
+            { text: "3", isCorrect: false },
+            { text: "4", isCorrect: false }
         ]
     },
     {
-        question: "A 45-year-old man with a history of smoking presents with chronic cough and hemoptysis. What is the most likely diagnosis?",
+        question: "Who won the world cup 2006",
         options: [
-            { text: "Bronchitis", isCorrect: false },
-            { text: "Lung cancer", isCorrect: true },
-            { text: "Tuberculosis", isCorrect: false },
-            { text: "Pneumonia", isCorrect: false }
+            { text: "Italy", isCorrect: true },
+            { text: " Brazil", isCorrect: false },
+            { text: "France", isCorrect: false },
+            { text: "Germany", isCorrect: false }
         ]
     }
 ];
