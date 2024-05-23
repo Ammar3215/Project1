@@ -1,4 +1,4 @@
-const questions = [
+let questions = [
     {
         question: "A 25-year-old man presents with severe abdominal pain. Which of the following is the most likely diagnosis?",
         options: [
@@ -31,6 +31,18 @@ const questions = [
 let currentQuestionIndex = -1;
 let correctAnswers = 0;
 
+// Function to shuffle questions array
+function shuffleQuestions() {
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+}
+
+// Shuffle questions array initially
+shuffleQuestions();
+
+// Function to display the next question
 function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
     questionContainer.innerHTML = '';
@@ -79,6 +91,7 @@ function displayQuestion() {
 function resetQuiz() {
     currentQuestionIndex = -1;
     correctAnswers = 0;
+    shuffleQuestions(); // Reshuffle questions array on reset
     displayQuestion();
     document.getElementById('pop-question-btn').style.display = 'inline-block';
     document.getElementById('next-question-btn').style.display = 'none';
@@ -115,6 +128,7 @@ function hideMessage() {
     messageElement.textContent = '';
 }
 
+// Event listeners
 document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
 document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
 document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
