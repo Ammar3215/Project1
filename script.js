@@ -1,5 +1,5 @@
 let questions = [
-{
+    {
         question: "Who won the World Cup 2010?",
         options: [
             { text: "Italy", isCorrect: false },
@@ -149,6 +149,7 @@ function displayQuestion() {
             } else {
                 button.classList.add('incorrect');
                 chancesLeft--;
+                button.disabled = true;
                 if (chancesLeft > 0) {
                     showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
                 } else {
@@ -194,7 +195,9 @@ function showMessage(message) {
 }
 
 function showCorrectMessage() {
-    const messageElement = document.getElementById('message');
+    const messageElement
+
+ = document.getElementById('message');
     messageElement.textContent = 'Correct answer!';
     messageElement.style.color = '#28a745';
 }
