@@ -164,9 +164,9 @@ function displayQuestion() {
                 questionObj.chancesLeft--; // Decrease chancesLeft for current question
                 button.disabled = true;
                 if (questionObj.chancesLeft > 0) {
-                    showMessage(7awel mara tanya😡 ${questionObj.chancesLeft} chance(s) left.`);
+                    showMessage(`You have ${questionObj.chancesLeft} chance(s) left.`);
                 } else {
-                    showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+                    showMessage(`The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
                     disableAnswerButtons();
                 }
             }
@@ -219,7 +219,7 @@ function showMessage(message) {
 
 function showCorrectMessage() {
     const messageElement = document.getElementById('message');
-    messageElement.textContent = '3alamy😍😍!';
+    messageElement.textContent = 'Correct!';
     messageElement.style.color = '#28a745';
 }
 
@@ -258,4 +258,3 @@ document.getElementById('reset-btn').addEventListener('click', resetQuiz);
 
 // Initial display of question
 resetQuiz();
-
