@@ -246,7 +246,7 @@ function toggleButtons(showNext) {
 function disableAnswerButtons() {
     const buttons = document.querySelectorAll('.option-button');
     buttons.forEach(button => {
-        button.disabled = true;
+        button.disabled = false;
     });
 }
 
@@ -254,7 +254,7 @@ function disableAnswerButtons() {
 function enableAnswerButtons() {
     const buttons = document.querySelectorAll('.option-button');
     buttons.forEach(button => {
-        button.disabled = false;
+        button.disabled = true;
     });
 }
 
