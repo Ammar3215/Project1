@@ -118,22 +118,26 @@ let questions = [
     }
 ];
 
-let chancesLeft = 2; 
-let currentQuestionIndex = -1; 
-let correctAnswers = 0;
+let chancesLeft = 2; // Chances left for each question
+let currentQuestionIndex = -1; // Index to track the current question
+let correctAnswers = 0; // Counter for correct answers
 
+// Function to display a question
 function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
-    questionContainer.innerHTML = ''; 
+    questionContainer.style.display = 'block'; // Show question container
 
+    // Increment currentQuestionIndex properly
     currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
     const questionObj = questions[currentQuestionIndex];
 
     const questionElement = document.createElement('div');
     questionElement.textContent = questionObj.question;
     questionElement.classList.add('question');
+    questionContainer.innerHTML = ''; // Clear previous question
     questionContainer.appendChild(questionElement);
 
+    // Create buttons for options
     questionObj.options.forEach(option => {
         const button = document.createElement('button');
         button.textContent = option.text;
@@ -144,18 +148,19 @@ function displayQuestion() {
         questionContainer.appendChild(button);
     });
 
-    updateProgressBar();
+    updateProgressBar(); // Update progress bar
     toggleButtons(true); // Show/hide buttons accordingly
 }
 
+// Function to handle user's answer
 function handleAnswer(option, button, questionObj) {
-    disableAnswerButtons();
+    disableAnswerButtons(); // Disable all answer buttons
     if (option.isCorrect) {
         button.classList.add('correct');
         correctAnswers++;
         showScore();
-        hideMessage();
-        showCorrectMessage();
+        hideMessage(); // Clear any previous messages
+        showCorrectMessage(); // Show message for correct answer
     } else {
         button.classList.add('incorrect');
         chancesLeft--;
@@ -169,45 +174,54 @@ function handleAnswer(option, button, questionObj) {
     toggleButtons(false); // Adjust button visibility
 }
 
+// Function to reset the quiz
 function resetQuiz() {
-    currentQuestionIndex = -1; 
-    correctAnswers = 0; 
-    chancesLeft = 2; 
-    shuffleQuestions(); 
-    displayQuestion();
-    toggleButtons(true); 
-    hideMessage(); 
+    currentQuestionIndex = -1; // Reset current question index
+    correctAnswers = 0; // Reset correct answers count
+    chancesLeft = 2; // Reset chances left
+    shuffleQuestions(); // Reshuffle questions array on reset
+    displayQuestion(); // Display the first question
+    document.getElementById('pop-question-btn').style.display = 'inline-block'; // Show 'Next Question' button
+    document.getElementById('next-question-btn').style.display = 'none'; // Hide 'Next Question' button
+    document.getElementById('skip-question-btn').style.display = 'none'; // Hide 'Skip Question' button
+    hideMessage(); // Hide any message
 }
 
+// Function to update the progress bar
 function updateProgressBar() {
     const progressBar = document.getElementById('progress-bar');
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
     progressBar.style.width = progress + '%';
 }
 
+// Function to show the score
 function showScore() {
     const scoreElement = document.getElementById('score');
     const score = (correctAnswers / questions.length) * 100;
     scoreElement.textContent = `Score: ${score.toFixed(0)}%`;
 }
 
+// Function to show a message
 function showMessage(message) {
     const messageElement = document.getElementById('message');
     messageElement.textContent = message;
     messageElement.style.color = '#dc3545';
 }
 
+// Function to show a correct message
 function showCorrectMessage() {
     const messageElement = document.getElementById('message');
     messageElement.textContent = 'Correct answer! Well done!';
     messageElement.style.color = '#28a745';
 }
 
+// Function to hide any message
 function hideMessage() {
     const messageElement = document.getElementById('message');
     messageElement.textContent = '';
 }
 
+// Function to disable all answer buttons
 function disableAnswerButtons() {
     const buttons = document.querySelectorAll('.option-button');
     buttons.forEach(button => {
@@ -215,12 +229,14 @@ function disableAnswerButtons() {
     });
 }
 
+// Function to toggle button visibility
 function toggleButtons(showNext) {
     document.getElementById('pop-question-btn').style.display = showNext ? 'inline-block' : 'none';
     document.getElementById('next-question-btn').style.display = showNext ? 'none' : 'inline-block';
     document.getElementById('skip-question-btn').style.display = showNext ? 'none' : 'inline-block';
 }
 
+// Function to shuffle questions array
 function shuffleQuestions() {
     for (let i = questions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -228,7 +244,15 @@ function shuffleQuestions() {
     }
 }
 
-// Event listeners
+// Event listener for Start Quiz button
+document.getElementById('start-btn').addEventListener('click', function() {
+    document.getElementById('welcome-message').style.display = 'none'; // Hide welcome message
+    document.querySelector('.button-container').style.display = 'block'; // Show button container
+    document.querySelector('.progress-container').style.display = 'block'; // Show progress container
+    displayQuestion(); // Display the first question
+});
+
+// Event listeners for quiz control buttons
 document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
 document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
 document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
