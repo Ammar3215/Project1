@@ -29,21 +29,26 @@ const questions = [
 ];
 
 let currentQuestionIndex = -1;
+let correctAnswers = 0;
+let answeredQuestions = 0;
 
-const questionContainer = document.getElementById('question-container');
-const popQuestionBtn = document.getElementById('pop-question-btn');
-const nextQuestionBtn = document.getElementById('next-question-btn');
-const skipQuestionBtn = document.getElementById('skip-question-btn');
-
-function displayQuestion() {
-    questionContainer.innerHTML = '';
-
-    if (currentQuestionIndex === -1) {
-        popQuestionBtn.style.display = 'none';
-        nextQuestionBtn.style.display = 'inline-block';
-        skipQuestionBtn.style.display = 'inline-block';
-        currentQuestionIndex = Math.floor(Math.random() * questions.length);
+// Function to shuffle questions array
+function shuffleQuestions() {
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
     }
+}
+
+// Function to display question
+function displayQuestion() {
+    if (currentQuestionIndex === -1) {
+        shuffleQuestions();
+    }
+    currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+
+    const questionContainer = document.getElementById('question-container');
+    questionContainer.innerHTML = '';
 
     const questionObj = questions[currentQuestionIndex];
 
@@ -70,19 +75,50 @@ function displayQuestion() {
                     btn.classList.add('incorrect');
                 }
             });
+
+            answeredQuestions++;
+            correctAnswers += option.isCorrect ? 1 : 0;
+            updateScore();
+            updateProgress();
         });
         questionContainer.appendChild(button);
     });
+
+    document.getElementById('pop-question-btn').style.display = 'none';
+    document.getElementById('next-question-btn').style.display = 'inline-block';
+    document.getElementById('skip-question-btn').style.display = 'inline-block';
 }
 
-popQuestionBtn.addEventListener('click', displayQuestion);
+// Function to update progress bar
+function updateProgress() {
+    const progress = (answeredQuestions / questions.length) * 100;
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.width = progress + '%';
+}
 
-nextQuestionBtn.addEventListener('click', function() {
-    currentQuestionIndex = -1;
-    displayQuestion();
-});
+// Function to update total score
+function updateScore() {
+    const score = (correctAnswers / answeredQuestions) * 100;
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = `Total Score: ${score.toFixed(2)}%`;
+}
 
-skipQuestionBtn.addEventListener('click', function() {
+// Function to reset quiz
+function resetQuiz() {
     currentQuestionIndex = -1;
+    correctAnswers = 0;
+    answeredQuestions = 0;
+    updateScore();
+    updateProgress();
     displayQuestion();
-});
+}
+
+// Event listeners
+document.getElementById('pop-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('next-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('skip-question-btn').addEventListener('click', displayQuestion);
+document.getElementById('reset-btn').addEventListener('click', resetQuiz);
+
+// Initial display of question
+displayQuestion();
+
