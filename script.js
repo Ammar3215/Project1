@@ -164,9 +164,9 @@ function displayQuestion() {
                 questionObj.chancesLeft--; // Decrease chancesLeft for current question
                 button.disabled = true;
                 if (questionObj.chancesLeft > 0) {
-                    showMessage(`You have ${questionObj.chancesLeft} chance(s) left.`);
+                    showMessage(7awel mara tanya😡 ${questionObj.chancesLeft} chance(s) left.`);
                 } else {
-                    showMessage(`The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+                    showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
                     disableAnswerButtons();
                 }
             }
