@@ -1,5 +1,5 @@
 let questions = [
-    {
+   {
         question: "Who won the World Cup 2010?",
         options: [
             { text: "Italy", isCorrect: false },
