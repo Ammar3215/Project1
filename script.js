@@ -28,14 +28,6 @@ let questions = [
     }
 ];
 
-let shuffledQuestions = [];
-
-function shuffleQuestions() {
-    shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
-}
-
-shuffleQuestions();
-
 let currentQuestionIndex = -1;
 let correctAnswers = 0;
 let answeredQuestions = 0;
@@ -46,24 +38,26 @@ const nextQuestionBtn = document.getElementById('next-question-btn');
 const skipQuestionBtn = document.getElementById('skip-question-btn');
 const resetBtn = document.getElementById('reset-btn');
 const progressBar = document.getElementById('progress-bar');
-const scoreContainer = document.getElementById('score-container');
+const progressText = document.getElementById('progress-text');
+const scoreText = document.getElementById('score-text');
 const messageContainer = document.getElementById('message-container');
 
+// Shuffle questions on page load
+shuffleQuestions();
+
+function shuffleQuestions() {
+    questions = questions.sort(() => Math.random() - 0.5);
+}
+
 function displayQuestion() {
+    resetState();
     questionContainer.innerHTML = '';
-    messageContainer.textContent = '';
 
     if (currentQuestionIndex === -1) {
-        popQuestionBtn.style.display = 'none';
-        nextQuestionBtn.style.display = 'inline-block';
-        skipQuestionBtn.style.display = 'inline-block';
-        progressBar.style.display = 'block';
         currentQuestionIndex = 0;
-        correctAnswers = 0;
-        answeredQuestions = 0;
     }
 
-    const questionObj = shuffledQuestions[currentQuestionIndex];
+    const questionObj = questions[currentQuestionIndex];
 
     const questionElement = document.createElement('div');
     questionElement.textContent = questionObj.question;
@@ -77,32 +71,50 @@ function displayQuestion() {
         button.addEventListener('click', function() {
             if (option.isCorrect) {
                 button.classList.add('correct');
-                correctAnswers++;
+                handleCorrectAnswer();
             } else {
                 button.classList.add('incorrect');
-                messageContainer.textContent = 'Wrong answer! Try again.';
+                handleWrongAnswer();
             }
-            answeredQuestions++;
-            updateProgress();
-            disableButtons();
+            disableOptionButtons();
         });
         questionContainer.appendChild(button);
     });
 
-    updateProgress();
+    updateProgressBar();
 }
 
-function updateProgress() {
-    const progress = ((answeredQuestions / questions.length) * 100).toFixed(0);
-    progressBar.style.width = progress + '%';
-    progressBar.textContent = progress + '%';
-    scoreContainer.textContent = `Score: ${correctAnswers}/${answeredQuestions}`;
+function handleCorrectAnswer() {
+    correctAnswers++;
+    answeredQuestions++;
+    showFeedbackMessage('Correct!');
+    updateScore();
 }
 
-function disableButtons() {
+function handleWrongAnswer() {
+    answeredQuestions++;
+    showFeedbackMessage('Try again🤬🤬 Ya 🐏!');
+}
+
+function showFeedbackMessage(message) {
+    messageContainer.textContent = message;
+}
+
+function updateScore() {
+    const scorePercentage = Math.round((correctAnswers / answeredQuestions) * 100);
+    scoreText.textContent = `Score: ${scorePercentage}%`;
+}
+
+function updateProgressBar() {
+    const progressPercentage = Math.round((answeredQuestions / questions.length) * 100);
+    progressBar.style.width = `${progressPercentage}%`;
+    progressText.textContent = `Question ${answeredQuestions} of ${questions.length}`;
+}
+
+function disableOptionButtons() {
     document.querySelectorAll('.option-button').forEach(btn => {
         btn.disabled = true;
-        if (shuffledQuestions[currentQuestionIndex].options.find(opt => opt.text === btn.textContent).isCorrect) {
+        if (questions[currentQuestionIndex].options.find(opt => opt.text === btn.textContent).isCorrect) {
             btn.classList.add('correct');
         } else if (!btn.classList.contains('correct')) {
             btn.classList.add('incorrect');
@@ -110,13 +122,37 @@ function disableButtons() {
     });
 }
 
+function resetState() {
+    messageContainer.textContent = '';
+    document.querySelectorAll('.option-button').forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'incorrect');
+    });
+}
+
 popQuestionBtn.addEventListener('click', displayQuestion);
 
 nextQuestionBtn.addEventListener('click', function() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex >= questions.length) {
-        currentQuestionIndex = 0;
-        shuffleQuestions();
-   
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        displayQuestion();
+    }
+});
 
+skipQuestionBtn.addEventListener('click', function() {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        displayQuestion();
+    }
+});
 
+resetBtn.addEventListener('click', function() {
+    currentQuestionIndex = -1;
+    correctAnswers = 0;
+    answeredQuestions = 0;
+    shuffleQuestions();
+    displayQuestion();
+    scoreText.textContent = 'Score: 0%';
+    progressBar.style.width = '0%';
+    progressText.textContent = '';
+});
