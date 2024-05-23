@@ -100,13 +100,13 @@ function showScore() {
 
 function showMessage() {
     const messageElement = document.getElementById('message');
-    messageElement.textContent = 'Wrong answer! Try again.';
+    messageElement.textContent = 'Wrong answer🤬🤬 Try again Ya 🐏🐏';
     messageElement.style.color = '#dc3545';
 }
 
 function showCorrectMessage() {
     const messageElement = document.getElementById('message');
-    messageElement.textContent = 'Correct answer!';
+    messageElement.textContent = '3alamy😍😍';
     messageElement.style.color = '#28a745';
 }
 
