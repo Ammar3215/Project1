@@ -238,9 +238,10 @@ function disableAnswerButtons() {
         }
     });
     document.getElementById('pop-question-btn').style.display = 'none';
-    document.getElementById('next-question-btn    .style.display = 'inline-block';
+    document.getElementById('next-question-btn').style.display = 'inline-block'; // Fixed here
     document.getElementById('skip-question-btn').style.display = 'inline-block';
 }
+
 
 function shuffleQuestions() {
     for (let i = questions.length - 1; i > 0; i--) {
