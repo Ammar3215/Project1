@@ -6,7 +6,8 @@ let questions = [
             { text: "Spain", isCorrect: true },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2 // Adding chancesLeft property to each question
     },
     {
         question: "Which of the following is a classic physical examination finding in a patient with lateral epicondylitis?",
@@ -15,7 +16,8 @@ let questions = [
             { text: "Pain with resisted wrist extension", isCorrect: true },
             { text: "Pain with ulnar deviation of the wrist", isCorrect: false },
             { text: "Pain with flexion and adduction of the wrist", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "Who won the World Cup 1994?",
@@ -24,7 +26,8 @@ let questions = [
             { text: "Brazil", isCorrect: true },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "A 50-year-old woman presents with dry eyes and mouth, fatigue, and joint pain. On examination, there are bilateral parotid gland enlargement and positive anti-SSA (Ro) antibodies. What is the most likely diagnosis?",
@@ -33,7 +36,8 @@ let questions = [
             { text: "Sjögren's syndrome", isCorrect: true },
             { text: "Rheumatoid arthritis (RA)", isCorrect: false },
             { text: "Polymyalgia rheumatica", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "Who won the World Cup 2018?",
@@ -42,7 +46,8 @@ let questions = [
             { text: "Brazil", isCorrect: false },
             { text: "France", isCorrect: true },
             { text: "Germany", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "Milan UEFA Champions League titles",
@@ -51,7 +56,8 @@ let questions = [
             { text: "7", isCorrect: true },
             { text: "3", isCorrect: false },
             { text: "8", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "Most consecutive Premier League title wins",
@@ -60,7 +66,8 @@ let questions = [
             { text: "Arsenal", isCorrect: false },
             { text: "Man City", isCorrect: true },
             { text: "Chelsea", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "A 30-year-old female presents with pain and swelling in multiple joints, including the wrists, knees, and ankles. She reports morning stiffness lasting more than one hour. On examination, there is tenderness and swelling of the proximal interphalangeal joints and metacarpophalangeal joints. What is the most likely diagnosis?",
@@ -69,7 +76,8 @@ let questions = [
             { text: "Osteoarthritis (OA)", isCorrect: false },
             { text: "Systemic lupus erythematosus (SLE)", isCorrect: false },
             { text: "Psoriatic arthritis", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "Most Premier League titles by",
@@ -78,7 +86,8 @@ let questions = [
             { text: "Chelsea", isCorrect: false },
             { text: "Arsenal", isCorrect: false },
             { text: "Man United", isCorrect: true }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "A 60-year-old male presents with sudden-onset severe pain and pallor in his left lower extremity. On examination, the limb is cold to touch, with absent distal pulses. What is the most likely diagnosis?",
@@ -87,7 +96,8 @@ let questions = [
             { text: "Deep vein thrombosis (DVT)", isCorrect: false },
             { text: "Acute compartment syndrome", isCorrect: false },
             { text: "Popliteal artery aneurysm rupture", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "Who won the World Cup 2002?",
@@ -96,7 +106,8 @@ let questions = [
             { text: "Brazil", isCorrect: true },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "How many Ballon d'Or does Ronaldo have?",
@@ -105,7 +116,8 @@ let questions = [
             { text: "5", isCorrect: true },
             { text: "3", isCorrect: false },
             { text: "4", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     },
     {
         question: "Who won the World Cup 2006?",
@@ -114,14 +126,13 @@ let questions = [
             { text: "Brazil", isCorrect: false },
             { text: "France", isCorrect: false },
             { text: "Germany", isCorrect: false }
-        ]
+        ],
+        chancesLeft: 2
     }
 ];
 
 let currentQuestionIndex = -1;
 let correctAnswers = 0;
-let chancesLeft = 2; // Number of chances user has for each question
-let questionsAttempted = 0;
 
 function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
@@ -144,37 +155,20 @@ function displayQuestion() {
                 button.classList.add('correct');
                 correctAnswers++;
                 showScore();
-                calculatePercentageCorrect(); // Calculate and display percentage correct
-                hideMessage(); // Clear any previous messages
-                showCorrectMessage(); // Show message for correct answer
-
-                if (chancesLeft === 1) {
-                    showMessage(`Correct! You got it on your second try. 😊`);
-                } else {
-                    showMessage(`Correct!`);
-                }
-
+                calculatePercentageCorrect();
+                hideMessage();
+                showCorrectMessage();
                 disableAnswerButtons();
             } else {
                 button.classList.add('incorrect');
-                chancesLeft--;
-
-                if (chancesLeft > 0) {
-                    showMessage(`7awel mara tanya😡! You have ${chancesLeft} chances left.`);
+                questionObj.chancesLeft--; // Decrease chancesLeft for current question
+                button.disabled = true;
+                if (questionObj.chancesLeft > 0) {
+                    showMessage(`You have ${questionObj.chancesLeft} chance(s) left.`);
                 } else {
-                    showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+                    showMessage(`The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
                     disableAnswerButtons();
                 }
-            }
-
-            // Increment questions attempted
-            questionsAttempted++;
-
-            // Check if all questions are attempted
-            if (questionsAttempted === questions.length) {
-                document.getElementById('next-question-btn').style.display = 'none';
-                document.getElementById('skip-question-btn').style.display = 'none';
-                document.getElementById('reset-btn').style.display = 'inline-block';
             }
         });
         questionContainer.appendChild(button);
@@ -186,20 +180,18 @@ function displayQuestion() {
 function resetQuiz() {
     currentQuestionIndex = -1;
     correctAnswers = 0;
-    chancesLeft = 2; // Reset chances for each question
-    questionsAttempted = 0; // Reset questions attempted
-    shuffleQuestions(); // Reshuffle questions array on reset
+    questions.forEach(question => {
+        question.chancesLeft = 2; // Reset chancesLeft for all questions
+    });
+    shuffleQuestions();
     displayQuestion();
 
-    // Reset progress bar to 0%
+    // Reset progress bar and percentage display
     const progressBar = document.getElementById('progress-bar');
     progressBar.style.width = `0%`;
-
-    // Update percentage correct display
-    calculatePercentageCorrect();
+    const percentageElement = document.getElementById('percentage-correct');
+    percentageElement.textContent = `Percentage Correct: 0%`;
 }
-// Other functions (updateProgressBar, showScore, calculatePercentageCorrect, etc.) remain unchanged.
-
 
 function updateProgressBar() {
     const progressBar = document.getElementById('progress-bar');
@@ -211,10 +203,6 @@ function showScore() {
     const scoreElement = document.getElementById('score');
     const percentage = (correctAnswers / questions.length) * 100;
     scoreElement.textContent = `Score: ${percentage.toFixed(0)}%`;
-
-    // Update progress bar
-    const progressBar = document.getElementById('progress-bar');
-    progressBar.style.width = `${percentage}%`;
 }
 
 function calculatePercentageCorrect() {
@@ -231,7 +219,7 @@ function showMessage(message) {
 
 function showCorrectMessage() {
     const messageElement = document.getElementById('message');
-    messageElement.textContent = '3alamy😍😍!';
+    messageElement.textContent = 'Correct!';
     messageElement.style.color = '#28a745';
 }
 
@@ -250,7 +238,7 @@ function disableAnswerButtons() {
         }
     });
     document.getElementById('pop-question-btn').style.display = 'none';
-    document.getElementById('next-question-btn').style.display = 'inline-block';
+    document.getElementById('next-question-btn    .style.display = 'inline-block';
     document.getElementById('skip-question-btn').style.display = 'inline-block';
 }
 
@@ -268,5 +256,5 @@ document.getElementById('skip-question-btn').addEventListener('click', displayQu
 document.getElementById('reset-btn').addEventListener('click', resetQuiz);
 
 // Initial display of question
-displayQuestion();
-calculatePercentageCorrect(); // Calculate and display percentage correct
+resetQuiz();
+
