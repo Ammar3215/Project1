@@ -183,6 +183,10 @@ function showScore() {
     const scoreElement = document.getElementById('score');
     const percentage = (correctAnswers / questions.length) * 100;
     scoreElement.textContent = `Score: ${percentage.toFixed(0)}%`;
+
+    // Update progress bar
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.style.width = `${percentage}%`;
 }
 
 function calculatePercentageCorrect() {
@@ -190,6 +194,7 @@ function calculatePercentageCorrect() {
     const percentage = (correctAnswers / (currentQuestionIndex + 1)) * 100;
     percentageElement.textContent = `Percentage Correct: ${percentage.toFixed(0)}%`;
 }
+
 
 function showMessage(message) {
     const messageElement = document.getElementById('message');
