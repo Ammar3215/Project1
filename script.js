@@ -139,26 +139,35 @@ function displayQuestion() {
         button.textContent = option.text;
         button.classList.add('option-button');
         button.addEventListener('click', function handleAnswer() {
-            if (option.isCorrect) {
-                button.classList.add('correct');
-                correctAnswers++;
-                showScore();
-                calculatePercentageCorrect(); // Calculate and display percentage correct
-                hideMessage(); // Clear any previous messages
-                showCorrectMessage(); // Show message for correct answer
-                disableAnswerButtons();
-            } else {
-                button.classList.add('incorrect');
-                chancesLeft--;
-                button.disabled = true;
-                if (chancesLeft > 0) {
-                    showMessage(`7awel mara tanya😡! You have ${chancesLeft} chances left.`);
-                } else {
-                    showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
-                    disableAnswerButtons();
-                }
-            }
-        });
+    if (option.isCorrect) {
+        button.classList.add('correct');
+        correctAnswers++;
+        showScore();
+        calculatePercentageCorrect(); // Calculate and display percentage correct
+        hideMessage(); // Clear any previous messages
+        showCorrectMessage(); // Show message for correct answer
+
+        // Check if it's the second attempt
+        if (chancesLeft === 1) {
+            showMessage(`Correct! You got it on your second try. 😊`);
+        } else {
+            showMessage(`Correct!`);
+        }
+
+        disableAnswerButtons();
+    } else {
+        button.classList.add('incorrect');
+        chancesLeft--;
+        button.disabled = true;
+        if (chancesLeft > 0) {
+            showMessage(`7awel mara tanya😡! You have ${chancesLeft} chances left.`);
+        } else {
+            showMessage(`Teez🫤 The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+            disableAnswerButtons();
+        }
+    }
+}
+);
         questionContainer.appendChild(button);
     });
 
