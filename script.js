@@ -198,7 +198,7 @@ function showCorrectMessage() {
     const messageElement
 
  = document.getElementById('message');
-    messageElement.textContent = 'Correct answer!';
+    messageElement.textContent = '3alamy😍😍!';
     messageElement.style.color = '#28a745';
 }
 
