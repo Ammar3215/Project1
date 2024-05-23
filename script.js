@@ -8,6 +8,14 @@ let questions = [
             { text: "Germany", isCorrect: false }
         ]
     },
+      {
+    question: "Which of the following is a classic physical examination finding in a patient with lateral epicondylitis?",
+    options: [
+      { text: "Pain with palpation over the medial epicondyle", isCorrect: false },
+      { text: "Pain with resisted wrist extension", isCorrect: true },
+      { text: "Pain with ulnar deviation of the wrist", isCorrect: false },
+      { text: "Pain with flexion and adduction of the wrist", isCorrect: false }
+    ]
     {
         question: "Who won the world cup 1994",
         options: [
@@ -17,6 +25,15 @@ let questions = [
             { text: "Germany", isCorrect: false }
         ]
     },
+{
+    question: "A 50-year-old woman presents with dry eyes and mouth, fatigue, and joint pain. On examination, there are bilateral parotid gland enlargement and positive anti-SSA (Ro) antibodies. What is the most likely diagnosis?",
+    options: [
+      { text: "Systemic lupus erythematosus (SLE)", isCorrect: false },
+      { text: "Sjögren's syndrome", isCorrect: true },
+      { text: "Rheumatoid arthritis (RA)", isCorrect: false },
+      { text: "Polymyalgia rheumatica", isCorrect: false }
+    ]
+  },
      {
         question: "Who won the world cup 2018",
         options: [
@@ -44,6 +61,15 @@ let questions = [
             { text: "chelsea", isCorrect: false }
         ]
     },
+  {
+    question: " A 30-year-old female presents with pain and swelling in multiple joints, including the wrists, knees, and ankles. She reports morning stiffness lasting more than one hour. On examination, there is tenderness and swelling of the proximal interphalangeal joints and metacarpophalangeal joints. What is the most likely diagnosis?",
+    options: [
+      { text: "Rheumatoid arthritis (RA)", isCorrect: true },
+      { text: "Osteoarthritis (OA)", isCorrect: false },
+      { text: "Systemic lupus erythematosus (SLE)", isCorrect: false },
+      { text: "Psoriatic arthritis", isCorrect: false }
+    ]
+  },
      {
         question: "Most premier league titles by",
         options: [
@@ -53,6 +79,15 @@ let questions = [
             { text: "Man united", isCorrect: ttue }
         ]
     },
+  {
+    question: "A 60-year-old male presents with sudden-onset severe pain and pallor in his left lower extremity. On examination, the limb is cold to touch, with absent distal pulses. What is the most likely diagnosis?",
+    options: [
+      { text: "Acute arterial thrombosis", isCorrect: true },
+      { text: "Deep vein thrombosis (DVT)", isCorrect: false },
+      { text: "Acute compartment syndrome", isCorrect: false },
+      { text: "Popliteal artery aneurysm rupture", isCorrect: false }
+    ]
+  },
      {
         question: "Who won the world cup 2002",
         options: [
