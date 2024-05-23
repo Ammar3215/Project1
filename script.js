@@ -120,7 +120,7 @@ let questions = [
 
 let currentQuestionIndex = -1;
 let correctAnswers = 0;
-let chancesLeft = 2; // Number of chances user has
+let chancesLeft = 2; // Number of chances user has for each question
 let questionsAttempted = 0;
 
 function displayQuestion() {
@@ -186,7 +186,7 @@ function displayQuestion() {
 function resetQuiz() {
     currentQuestionIndex = -1;
     correctAnswers = 0;
-    chancesLeft = 2; // Reset chances
+    chancesLeft = 2; // Reset chances for each question
     questionsAttempted = 0; // Reset questions attempted
     shuffleQuestions(); // Reshuffle questions array on reset
     displayQuestion();
@@ -198,7 +198,6 @@ function resetQuiz() {
     // Update percentage correct display
     calculatePercentageCorrect();
 }
-
 // Other functions (updateProgressBar, showScore, calculatePercentageCorrect, etc.) remain unchanged.
 
 
@@ -271,4 +270,3 @@ document.getElementById('reset-btn').addEventListener('click', resetQuiz);
 // Initial display of question
 displayQuestion();
 calculatePercentageCorrect(); // Calculate and display percentage correct
-
