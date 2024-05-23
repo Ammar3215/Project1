@@ -81,6 +81,46 @@ let questions = [
         ]
     }
 ];
+let chancesLeft = 2; // Add this line to declare the variable
+
+function displayQuestion() {
+    // Existing code...
+
+    questionObj.options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option.text;
+        button.classList.add('option-button');
+        button.addEventListener('click', function handleAnswer() {
+            if (option.isCorrect) {
+                // Existing code...
+            } else {
+                button.classList.add('incorrect');
+                chancesLeft--;
+                if (chancesLeft > 0) {
+                    showMessage(`Wrong answer! You have ${chancesLeft} chances left.`);
+                } else {
+                    showMessage(`Wrong answer! The correct answer is: ${questionObj.options.find(opt => opt.isCorrect).text}`);
+                    disableAnswerButtons();
+                }
+            }
+        });
+        questionContainer.appendChild(button);
+    });
+
+    // Existing code...
+}
+
+function resetQuiz() {
+    // Existing code...
+    chancesLeft = 2; // Reset chances
+    // Existing code...
+}
+
+function showMessage(message) {
+    const messageElement = document.getElementById('message');
+    messageElement.textContent = message;
+    messageElement.style.color = '#dc3545';
+}
 
 let currentQuestionIndex = -1;
 let correctAnswers = 0;
