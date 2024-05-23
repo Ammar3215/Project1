@@ -232,13 +232,6 @@ function hideMessage() {
     messageElement.textContent = '';
 }
 
-// Function to disable all answer buttons
-function disableAnswerButtons() {
-    const buttons = document.querySelectorAll('.option-button');
-    buttons.forEach(button => {
-        button.disabled = true;
-    });
-}
 
 // Function to toggle button visibility
 function toggleButtons(showNext) {
